@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Pigmento rojo",
+    "description": "Pigmento utilizado para tonalidades cálidas.",
+    "quantity": 50,
+    "unitPrice": 1200
+  },
+  {
+    "id": 2,
+    "name": "Pigmento azul",
+    "description": "Colorante base para mezclas frías.",
+    "quantity": 40,
+    "unitPrice": 1350
+  },
+  {
+    "id": 3,
+    "name": "Disolvente industrial",
+    "description": "Líquido para diluir pinturas y limpiar herramientas.",
+    "quantity": 75,
+    "unitPrice": 900
+  },
+  {
+    "id": 4,
+    "name": "Resina vinílica",
+    "description": "Componente principal en pinturas vinílicas.",
+    "quantity": 60,
+    "unitPrice": 2100
+  },
+  {
+    "id": 5,
+    "name": "Envases plásticos 1L",
+    "description": "Envases para el producto terminado.",
+    "quantity": 150,
+    "unitPrice": 350
+  },
+  {
+    "id": 6,
+    "name": "Agente espesorante",
+    "description": "Sustancia para regular la viscosidad.",
+    "quantity": 30,
+    "unitPrice": 1850
+  },
+  {
+    "id": 7,
+    "name": "Base blanca mate",
+    "description": "Pintura base para colores claros.",
+    "quantity": 90,
+    "unitPrice": 2500
+  },
+  {
+    "id": 8,
+    "name": "Catalizador",
+    "description": "Acelerador de secado en pinturas especiales.",
+    "quantity": 25,
+    "unitPrice": 2900
+  },
+  {
+    "id": 9,
+    "name": "Etiqueta adhesiva",
+    "description": "Etiqueta con marca y datos del producto.",
+    "quantity": 200,
+    "unitPrice": 150
+  },
+  {
+    "id": 10,
+    "name": "Pigmento verde",
+    "description": "Colorante para tonos naturales y frescos.",
+    "quantity": 45,
+    "unitPrice": 1300
+  }
+]
