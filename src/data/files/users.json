@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "nameUser": "adminMaster",
+    "password": "admin123",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "nameUser": "usuario1",
+    "password": "pass1234",
+    "role": "user"
+  },
+  {
+    "id": 3,
+    "nameUser": "usuario2",
+    "password": "clave5678",
+    "role": "user"
+  },
+  {
+    "id": 4,
+    "nameUser": "usuario3",
+    "password": "mypassword3",
+    "role": "user"
+  },
+  {
+    "id": 5,
+    "nameUser": "usuario4",
+    "password": "userpass4",
+    "role": "user"
+  },
+  {
+    "id": 6,
+    "nameUser": "usuario5",
+    "password": "securepass5",
+    "role": "user"
+  },
+  {
+    "id": 7,
+    "nameUser": "usuario6",
+    "password": "contraseña6",
+    "role": "user"
+  }
+]

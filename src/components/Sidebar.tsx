@@ -16,12 +16,13 @@ import ScienceIcon from "@mui/icons-material/Science";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext"; // Asegúrate de que esta ruta sea correcta
 
 const drawerWidth = 240;
 
 const adminMenu = [
-  { section: "Administrador" },
-  { text: "Monitoreo", path: "/", icon: <HomeIcon /> },
+  { section: "Gestión interna" },
+  { text: "Monitoreo", path: "/monitor", icon: <HomeIcon /> },
   { text: "Análisis", path: "/analisis", icon: <AnalyticsIcon /> },
   { text: "Gestor de respaldo", path: "/respaldo", icon: <InventoryIcon /> },
   { text: "Gestor de roles y permisos", path: "/rol", icon: <ReceiptIcon /> },
@@ -29,7 +30,7 @@ const adminMenu = [
 ];
 
 const userMenu = [
-  { section: "Operario" },
+  { section: "Gestión operaria" },
   { text: "Gestor de insumos", path: "/insumos", icon: <InventoryIcon /> },
   { text: "Gestor de compras", path: "/compras", icon: <ReceiptIcon /> },
   { text: "Gestor de ventas", path: "/ventas", icon: <ReceiptIcon /> },
@@ -40,14 +41,15 @@ const userMenu = [
 interface SidebarProps {
   mobileOpen: boolean;
   handleDrawerToggle: () => void;
-  isAdmin: boolean;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   mobileOpen,
   handleDrawerToggle,
-  isAdmin,
 }) => {
+  const { role } = useAuth();
+  const isAdmin = role === "admin";
+
   const menuItems = isAdmin ? [...adminMenu, ...userMenu] : userMenu;
 
   const drawer = (
@@ -85,14 +87,14 @@ const Sidebar: React.FC<SidebarProps> = ({
                   fontSize: 14,
                 },
                 "&:visited": {
-                  color: "text.primary", // Para que los enlaces visitados no se pongan morados
+                  color: "text.primary",
                 },
                 "&:hover": {
                   backgroundColor: "primary.light",
                   color: "primary.main",
                 },
                 "&:hover .MuiListItemIcon-root": {
-                  color: "white", // Cambia el color del icono al hacer hover
+                  color: "white",
                 },
               }}
             >
@@ -109,7 +111,6 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      {/* Sidebar permanente en desktop */}
       <Box sx={{ display: { xs: "none", sm: "block" } }}>
         <Drawer
           variant="permanent"
@@ -126,7 +127,6 @@ const Sidebar: React.FC<SidebarProps> = ({
         </Drawer>
       </Box>
 
-      {/* Sidebar móvil */}
       <Drawer
         variant="temporary"
         open={mobileOpen}
