@@ -44,51 +44,54 @@ const LoginForm = () => {
     }
   };
 
+  // Retornar null si ya tiene un rol
+  if (role) {
+    return null;
+  }
+
   return (
-    !role && (
-      <>
-        <Container maxWidth="sm">
-          <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
-            <Typography variant="h5" align="center" gutterBottom>
-              Iniciar sesión
-            </Typography>
+    <>
+      <Container maxWidth="sm">
+        <Paper elevation={3} sx={{ p: 4, mt: 10 }}>
+          <Typography variant="h5" align="center" gutterBottom>
+            Iniciar sesión
+          </Typography>
 
-            <Box
-              component="form"
-              onSubmit={handleLogin}
-              display="flex"
-              flexDirection="column"
-              gap={2}
-            >
-              <TextField
-                label="Usuario"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                fullWidth
-              />
-              <TextField
-                label="Contraseña"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                fullWidth
-              />
+          <Box
+            component="form"
+            onSubmit={handleLogin}
+            display="flex"
+            flexDirection="column"
+            gap={2}
+          >
+            <TextField
+              label="Usuario"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              fullWidth
+            />
+            <TextField
+              label="Contraseña"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              fullWidth
+            />
 
-              <Button variant="contained" color="primary" type="submit">
-                Entrar
-              </Button>
-            </Box>
-          </Paper>
-        </Container>
+            <Button variant="contained" color="primary" type="submit">
+              Entrar
+            </Button>
+          </Box>
+        </Paper>
+      </Container>
 
-        <CustomSnackbar
-          open={snackbarOpen}
-          message={snackbarMessage}
-          severity={snackbarSeverity}
-          onClose={() => setSnackbarOpen(false)}
-        />
-      </>
-    )
+      <CustomSnackbar
+        open={snackbarOpen}
+        message={snackbarMessage}
+        severity={snackbarSeverity}
+        onClose={() => setSnackbarOpen(false)}
+      />
+    </>
   );
 };
 
