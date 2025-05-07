@@ -2,14 +2,14 @@
   {
     "id": 1,
     "name": "Pigmento rojo",
-    "description": "Pigmento utilizado para tonalidades cálidas.",
+    "description": "Pigmento en polvo utilizado para tonalidades cálidas.",
     "quantity": 50,
     "unitPrice": 1200
   },
   {
     "id": 2,
     "name": "Pigmento azul",
-    "description": "Colorante base para mezclas frías.",
+    "description": "Colorante en polvo base para mezclas frías.",
     "quantity": 40,
     "unitPrice": 1350
   },
@@ -23,50 +23,190 @@
   {
     "id": 4,
     "name": "Resina vinílica",
-    "description": "Componente principal en pinturas vinílicas.",
+    "description": "Líquido, componente principal en pinturas vinílicas.",
     "quantity": 60,
     "unitPrice": 2100
   },
   {
     "id": 5,
     "name": "Envases plásticos 1L",
-    "description": "Envases para el producto terminado.",
+    "description": "Envases plásticos para el producto terminado.",
     "quantity": 150,
     "unitPrice": 350
   },
   {
     "id": 6,
     "name": "Agente espesorante",
-    "description": "Sustancia para regular la viscosidad.",
+    "description": "Sustancia en polvo para regular la viscosidad.",
     "quantity": 30,
     "unitPrice": 1850
   },
   {
     "id": 7,
     "name": "Base blanca mate",
-    "description": "Pintura base para colores claros.",
+    "description": "Pintura base líquida para colores claros.",
     "quantity": 90,
     "unitPrice": 2500
   },
   {
     "id": 8,
     "name": "Catalizador",
-    "description": "Acelerador de secado en pinturas especiales.",
+    "description": "Líquido acelerador de secado en pinturas especiales.",
     "quantity": 25,
     "unitPrice": 2900
   },
   {
     "id": 9,
     "name": "Etiqueta adhesiva",
-    "description": "Etiqueta con marca y datos del producto.",
+    "description": "Etiqueta adhesiva con marca y datos del producto.",
     "quantity": 200,
     "unitPrice": 150
   },
   {
     "id": 10,
     "name": "Pigmento verde",
-    "description": "Colorante para tonos naturales y frescos.",
+    "description": "Colorante en polvo para tonos naturales y frescos.",
     "quantity": 45,
     "unitPrice": 1300
+  },
+  {
+    "id": 11,
+    "name": "Pigmento amarillo",
+    "description": "Pigmento en polvo utilizado para tonalidades cálidas.",
+    "quantity": 50,
+    "unitPrice": 1100
+  },
+  {
+    "id": 12,
+    "name": "Aceite de linaza",
+    "description": "Líquido utilizado como base en pinturas.",
+    "quantity": 40,
+    "unitPrice": 1500
+  },
+  {
+    "id": 13,
+    "name": "Ceras para pintura",
+    "description": "Cera en barra para acabado en pinturas.",
+    "quantity": 60,
+    "unitPrice": 2200
+  },
+  {
+    "id": 14,
+    "name": "Barniz transparente",
+    "description": "Líquido utilizado para dar brillo a las pinturas.",
+    "quantity": 100,
+    "unitPrice": 2600
+  },
+  {
+    "id": 15,
+    "name": "Pigmento marrón",
+    "description": "Pigmento en polvo para tonos oscuros y cálidos.",
+    "quantity": 45,
+    "unitPrice": 1250
+  },
+  {
+    "id": 16,
+    "name": "Aditivo antimoho",
+    "description": "Líquido preventivo para evitar la formación de moho en pinturas.",
+    "quantity": 30,
+    "unitPrice": 2700
+  },
+  {
+    "id": 17,
+    "name": "Pigmento morado",
+    "description": "Pigmento en polvo para tonos fríos.",
+    "quantity": 50,
+    "unitPrice": 1400
+  },
+  {
+    "id": 18,
+    "name": "Resina epóxica",
+    "description": "Líquido, componente de alta resistencia para pinturas industriales.",
+    "quantity": 40,
+    "unitPrice": 3200
+  },
+  {
+    "id": 19,
+    "name": "Pintura a base de agua",
+    "description": "Pintura líquida para uso interior y exterior.",
+    "quantity": 80,
+    "unitPrice": 2800
+  },
+  {
+    "id": 20,
+    "name": "Pigmento negro",
+    "description": "Pigmento en polvo para tonos oscuros.",
+    "quantity": 50,
+    "unitPrice": 1300
+  },
+  {
+    "id": 21,
+    "name": "Polvo de talco",
+    "description": "Polvo utilizado en mezclas de pinturas para textura.",
+    "quantity": 100,
+    "unitPrice": 450
+  },
+  {
+    "id": 22,
+    "name": "Solvente orgánico",
+    "description": "Líquido utilizado para limpiar herramientas y disolver pigmentos.",
+    "quantity": 120,
+    "unitPrice": 1600
+  },
+  {
+    "id": 23,
+    "name": "Pintura metálica",
+    "description": "Pintura líquida con acabado brillante metálico.",
+    "quantity": 40,
+    "unitPrice": 3500
+  },
+  {
+    "id": 24,
+    "name": "Resina acrílica",
+    "description": "Líquido utilizado como base en pinturas acrílicas.",
+    "quantity": 90,
+    "unitPrice": 1800
+  },
+  {
+    "id": 25,
+    "name": "Pigmento naranja",
+    "description": "Pigmento en polvo para tonos cálidos y brillantes.",
+    "quantity": 50,
+    "unitPrice": 1150
+  },
+  {
+    "id": 26,
+    "name": "Pintura al aceite",
+    "description": "Pintura líquida a base de aceite para acabados suaves.",
+    "quantity": 60,
+    "unitPrice": 2700
+  },
+  {
+    "id": 27,
+    "name": "Aditivo retardante",
+    "description": "Líquido que aumenta el tiempo de secado de la pintura.",
+    "quantity": 25,
+    "unitPrice": 2200
+  },
+  {
+    "id": 28,
+    "name": "Gel para pintura",
+    "description": "Gel líquido utilizado para crear texturas en pinturas.",
+    "quantity": 50,
+    "unitPrice": 2300
+  },
+  {
+    "id": 29,
+    "name": "Fijador para pigmentos",
+    "description": "Líquido utilizado para estabilizar pigmentos en pinturas.",
+    "quantity": 35,
+    "unitPrice": 2100
+  },
+  {
+    "id": 30,
+    "name": "Pintura para exteriores",
+    "description": "Pintura líquida diseñada para resistir condiciones exteriores.",
+    "quantity": 70,
+    "unitPrice": 3000
   }
 ]

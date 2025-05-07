@@ -9,6 +9,8 @@ import {
   Divider,
   Box,
   Typography,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ReceiptIcon from "@mui/icons-material/Receipt";
@@ -50,6 +52,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   const { role } = useAuth();
   const isAdmin = role === "admin";
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const menuItems = isAdmin ? [...adminMenu, ...userMenu] : userMenu;
 
   const drawer = (
@@ -59,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       </Toolbar>
       <Divider />
       <List>
-        {menuItems.map((item, index) => {
+        {menuItems.map((item) => {
           if (item.section) {
             return (
               <ListItem key={`section-${item.section}`}>
@@ -80,6 +85,15 @@ const Sidebar: React.FC<SidebarProps> = ({
               key={item.text + (item.path || "")}
               component={item.path ? Link : "div"}
               to={item.path || ""}
+              onClick={
+                isMobile
+                  ? () => {
+                      setTimeout(() => {
+                        handleDrawerToggle();
+                      }, 150);
+                    }
+                  : undefined
+              }
               sx={{
                 "& .MuiListItemText-primary": {
                   textDecoration: "none",
@@ -111,6 +125,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
+      {/* Sidebar permanente en escritorio */}
       <Box sx={{ display: { xs: "none", sm: "block" } }}>
         <Drawer
           variant="permanent"
@@ -127,6 +142,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </Drawer>
       </Box>
 
+      {/* Sidebar temporal en móvil */}
       <Drawer
         variant="temporary"
         open={mobileOpen}

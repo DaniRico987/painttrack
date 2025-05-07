@@ -230,6 +230,7 @@ const Inventory = () => {
 
                 <TableCell
                   sortDirection={orderBy === "unitPrice" ? order : false}
+                  sx={{ minWidth: "140px" }}  
                 >
                   <TableSortLabel
                     active={orderBy === "unitPrice"}
@@ -250,10 +251,12 @@ const Inventory = () => {
                 .map((item) => (
                   <TableRow key={item.id}>
                     <TableCell>{item.name}</TableCell>
-                    <TableCell>{item.description}</TableCell>
+                    <TableCell sx={{ maxWidth: "200px" }}>
+                      {item.description}
+                    </TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>${item.unitPrice.toFixed(2)}</TableCell>
-                    <TableCell align="center">
+                    <TableCell align="center" sx={{ minWidth: "160px" }}>
                       <Button
                         variant="contained"
                         color="primary"
