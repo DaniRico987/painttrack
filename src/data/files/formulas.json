@@ -1,0 +1,187 @@
+[
+  {
+    "id": 1,
+    "name": "Rojo Intenso",
+    "description": "Mezcla base para tonos rojos vibrantes.",
+    "mixType": "base",
+    "totalAmount": 10,
+    "dryingTime": 30,
+    "coverage": 12,
+    "ingredients": [
+      { "id": 1, "name": "Pigmento rojo", "quantity": 150, "unit": "g" },
+      { "id": 2, "name": "Solvente", "quantity": 3000, "unit": "ml" },
+      { "id": 3, "name": "Resina acrílica", "quantity": 1000, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Azul Marino",
+    "description": "Acabado oscuro para exteriores.",
+    "mixType": "finish",
+    "totalAmount": 12,
+    "dryingTime": 45,
+    "coverage": 10,
+    "ingredients": [
+      { "id": 4, "name": "Pigmento azul", "quantity": 200, "unit": "g" },
+      { "id": 5, "name": "Aceite secante", "quantity": 2500, "unit": "ml" },
+      { "id": 6, "name": "Disolvente especial", "quantity": 1000, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Amarillo Pastel",
+    "description": "Ideal para ambientes interiores infantiles.",
+    "mixType": "base",
+    "totalAmount": 8,
+    "dryingTime": 25,
+    "coverage": 14,
+    "ingredients": [
+      { "id": 7, "name": "Pigmento amarillo", "quantity": 120, "unit": "g" },
+      { "id": 8, "name": "Base blanca", "quantity": 3000, "unit": "ml" },
+      { "id": 9, "name": "Aditivo espesor", "quantity": 50, "unit": "g" }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Verde Botella",
+    "description": "Acabado elegante para muebles de madera.",
+    "mixType": "finish",
+    "totalAmount": 5,
+    "dryingTime": 35,
+    "coverage": 11,
+    "ingredients": [
+      {
+        "id": 10,
+        "name": "Pigmento verde oscuro",
+        "quantity": 180,
+        "unit": "g"
+      },
+      {
+        "id": 11,
+        "name": "Resina poliuretánica",
+        "quantity": 1500,
+        "unit": "ml"
+      },
+      { "id": 12, "name": "Catalizador", "quantity": 500, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Anticorrosiva Industrial",
+    "description": "Protección avanzada contra oxidación para superficies metálicas.",
+    "mixType": "special",
+    "totalAmount": 15,
+    "dryingTime": 60,
+    "coverage": 9,
+    "ingredients": [
+      { "id": 13, "name": "Pigmento óxido rojo", "quantity": 250, "unit": "g" },
+      { "id": 14, "name": "Resina epóxica", "quantity": 4000, "unit": "ml" },
+      { "id": 15, "name": "Endurecedor", "quantity": 1000, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Blanco Mate",
+    "description": "Pintura de acabado mate universal.",
+    "mixType": "base",
+    "totalAmount": 20,
+    "dryingTime": 40,
+    "coverage": 13,
+    "ingredients": [
+      {
+        "id": 16,
+        "name": "Pigmento blanco titanio",
+        "quantity": 500,
+        "unit": "g"
+      },
+      { "id": 17, "name": "Acrílico vinílico", "quantity": 6000, "unit": "ml" },
+      { "id": 18, "name": "Agua desionizada", "quantity": 2000, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Efecto Metálico",
+    "description": "Pintura especial con acabado brillante tipo metal.",
+    "mixType": "special",
+    "totalAmount": 7,
+    "dryingTime": 50,
+    "coverage": 8,
+    "ingredients": [
+      { "id": 19, "name": "Polvo de aluminio", "quantity": 300, "unit": "g" },
+      { "id": 20, "name": "Solvente volátil", "quantity": 2000, "unit": "ml" },
+      { "id": 21, "name": "Base transparente", "quantity": 1200, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Antimoho",
+    "description": "Pintura con aditivo para prevenir el moho.",
+    "mixType": "base",
+    "totalAmount": 10,
+    "dryingTime": 30,
+    "coverage": 12,
+    "ingredients": [
+      { "id": 22, "name": "Pigmento gris", "quantity": 150, "unit": "g" },
+      { "id": 23, "name": "Aditivo antimoho", "quantity": 100, "unit": "ml" },
+      { "id": 24, "name": "Base acrílica", "quantity": 3000, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Barniz Brillante",
+    "description": "Barniz transparente para acabados brillantes.",
+    "mixType": "finish",
+    "totalAmount": 5,
+    "dryingTime": 20,
+    "coverage": 15,
+    "ingredients": [
+      { "id": 25, "name": "Resina alquídica", "quantity": 2000, "unit": "ml" },
+      { "id": 26, "name": "Disolvente", "quantity": 1000, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Barniz Mate",
+    "description": "Barniz transparente para acabados mates.",
+    "mixType": "finish",
+    "totalAmount": 5,
+    "dryingTime": 20,
+    "coverage": 15,
+    "ingredients": [
+      { "id": 27, "name": "Resina alquídica", "quantity": 2000, "unit": "ml" },
+      { "id": 28, "name": "Disolvente", "quantity": 1000, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Efecto Craquelado",
+    "description": "Pintura que crea un efecto craquelado en la superficie.",
+    "mixType": "special",
+    "totalAmount": 6,
+    "dryingTime": 55,
+    "coverage": 9,
+    "ingredients": [
+      {
+        "id": 29,
+        "name": "Pigmento craquelador",
+        "quantity": 200,
+        "unit": "g"
+      },
+      { "id": 30, "name": "Base acrílica", "quantity": 1500, "unit": "ml" }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Efecto Pizarra",
+    "description": "Pintura que permite escribir con tiza.",
+    "mixType": "base",
+    "totalAmount": 8,
+    "dryingTime": 40,
+    "coverage": 10,
+    "ingredients": [
+      { "id": 31, "name": "Pigmento pizarra", "quantity": 250, "unit": "g" },
+      { "id": 32, "name": "Base acrílica", "quantity": 2000, "unit": "ml" },
+      { "id": 33, "name": "Aditivo tiza", "quantity": 100, "unit": "g" }
+    ]
+  }
+]

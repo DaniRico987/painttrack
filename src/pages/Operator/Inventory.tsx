@@ -230,7 +230,7 @@ const Inventory = () => {
 
                 <TableCell
                   sortDirection={orderBy === "unitPrice" ? order : false}
-                  sx={{ minWidth: "140px" }}  
+                  sx={{ minWidth: "140px" }}
                 >
                   <TableSortLabel
                     active={orderBy === "unitPrice"}
@@ -249,7 +249,14 @@ const Inventory = () => {
               {sortedInventory
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((item) => (
-                  <TableRow key={item.id}>
+                  <TableRow
+                    key={item.id}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: theme.palette.action.hover,
+                      },
+                    }}
+                  >
                     <TableCell>{item.name}</TableCell>
                     <TableCell sx={{ maxWidth: "200px" }}>
                       {item.description}
