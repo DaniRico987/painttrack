@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Pigmento rojo",
+    "description": "Pigmento base para tonos rojos",
+    "quantity": 15,
+    "unitPrice": 5,
+    "type": "Solido",
+    "unit": "kg"
+  },
+  {
+    "id": 2,
+    "name": "Solvente industrial",
+    "description": "Diluyente para fórmulas",
+    "quantity": 30,
+    "unitPrice": 2,
+    "type": "Liquido",
+    "unit": "L"
+  },
+  {
+    "id": 3,
+    "name": "Resina acrílica",
+    "description": "Base para pintura acrílica",
+    "quantity": 25,
+    "unitPrice": 10,
+    "type": "Solido",
+    "unit": "kg"
+  }
+]
