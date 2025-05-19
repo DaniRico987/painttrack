@@ -47,7 +47,7 @@ const FormulaManager = () => {
         mixType: formula.mixType as "base" | "finish" | "special",
         ingredients: formula.ingredients.map((ingredient) => ({
           ...ingredient,
-          unit: ingredient.unit as "g" | "ml" | "L" | "unidades",
+          unit: ingredient.unit as "kg" | "g" | "ml" | "L" | "unidades",
         })),
       }))
     );
@@ -81,6 +81,12 @@ const FormulaManager = () => {
     setSnackbarMessage("Fórmula creada correctamente");
     setSnackbarSeverity("success");
     setSnackbarOpen(true);
+  };
+
+  const mixTypeLabels: Record<string, string> = {
+    base: "Base",
+    finish: "Acabado",
+    special: "Especial",
   };
 
   const deleteFormula = (id: number) => {
@@ -133,7 +139,7 @@ const FormulaManager = () => {
             {paginatedFormulas.map((f) => (
               <TableRow key={f.id}>
                 <TableCell>{f.name}</TableCell>
-                <TableCell>{f.mixType}</TableCell>
+                <TableCell>{mixTypeLabels[f.mixType]}</TableCell>
                 <TableCell>{f.totalAmount}</TableCell>
                 <TableCell>{f.dryingTime}</TableCell>
                 <TableCell>{f.coverage}</TableCell>

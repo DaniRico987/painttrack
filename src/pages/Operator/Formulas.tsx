@@ -23,7 +23,7 @@ const Formulas = () => {
         mixType: formula.mixType as "base" | "finish" | "special",
         ingredients: formula.ingredients.map((ingredient) => ({
           ...ingredient,
-          unit: ingredient.unit as "g" | "ml" | "L" | "unidades",
+          unit: ingredient.unit as "kg" | "g" | "ml" | "L" | "unidades",
         })),
       }))
     );
@@ -64,17 +64,10 @@ const Formulas = () => {
       )
   );
 
-  const translatedMixType = (mixType: string) => {
-    switch (mixType) {
-      case "base":
-        return "Base";
-      case "finish":
-        return "Acabado";
-      case "special":
-        return "Especial";
-      default:
-        return mixType;
-    }
+  const mixTypeLabels: Record<string, string> = {
+    base: "Base",
+    finish: "Acabado",
+    special: "Especial",
   };
 
   const paginatedFormulas = filteredFormulas.slice(
@@ -104,8 +97,7 @@ const Formulas = () => {
             {formula.description}
           </Typography>
           <Typography sx={{ mt: 1 }}>
-            <strong>Tipo de mezcla:</strong>{" "}
-            {translatedMixType(formula.mixType)}
+            <strong>Tipo de mezcla:</strong> {mixTypeLabels[formula.mixType]}
           </Typography>
           <Typography>
             <strong>Cantidad total:</strong> {formula.totalAmount} litros
