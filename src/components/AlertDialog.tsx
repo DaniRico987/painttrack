@@ -50,8 +50,8 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
           sx={{
             bgcolor: "transparent",
             mb: 2,
-            width: 64,
-            height: 64,
+            width: 72,
+            height: 72,
           }}
         >
           <WarningAmberRoundedIcon
@@ -61,10 +61,7 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
             }}
           />
         </Avatar>
-        <Typography
-          variant="subtitle1"
-          id="alert-dialog-description"
-        >
+        <Typography variant="subtitle1" id="alert-dialog-description">
           {message}
         </Typography>
       </Box>
@@ -73,7 +70,12 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
         <Button onClick={onCancel} color="inherit" variant="outlined">
           {cancelText}
         </Button>
-        <Button onClick={onConfirm} color="primary" variant="contained" autoFocus>
+        <Button
+          onClick={onConfirm}
+          color="primary"
+          variant="contained"
+          autoFocus
+        >
           {confirmText}
         </Button>
       </DialogActions>

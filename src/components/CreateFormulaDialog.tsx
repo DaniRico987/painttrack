@@ -24,7 +24,7 @@ const defaultIngredient: Ingredient = {
   id: 0,
   name: "",
   quantity: 0,
-  unit: "g",
+  unit: "kg",
 };
 
 const CreateFormulaDialog = ({
@@ -108,7 +108,7 @@ const CreateFormulaDialog = ({
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>Nueva fórmula</DialogTitle>
       <DialogContent>
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{ mt: 1 }}>
           <TextField
             label="Nombre"
             value={newFormula.name}
@@ -129,30 +129,32 @@ const CreateFormulaDialog = ({
             <MenuItem value="finish">Acabado</MenuItem>
             <MenuItem value="special">Especial</MenuItem>
           </TextField>
-          <TextField
-            label="Cantidad total (L)"
-            type="number"
-            value={newFormula.totalAmount}
-            onChange={(e) =>
-              handleChange("totalAmount", parseFloat(e.target.value))
-            }
-          />
-          <TextField
-            label="Tiempo de secado (min)"
-            type="number"
-            value={newFormula.dryingTime}
-            onChange={(e) =>
-              handleChange("dryingTime", parseInt(e.target.value))
-            }
-          />
-          <TextField
-            label="Cobertura (m²/L)"
-            type="number"
-            value={newFormula.coverage}
-            onChange={(e) =>
-              handleChange("coverage", parseFloat(e.target.value))
-            }
-          />
+          <div style={{ display: "flex", gap: "16px" }}>
+            <TextField
+              label="Cantidad total (L)"
+              type="number"
+              value={newFormula.totalAmount}
+              onChange={(e) =>
+                handleChange("totalAmount", parseFloat(e.target.value))
+              }
+            />
+            <TextField
+              label="Tiempo de secado (min)"
+              type="number"
+              value={newFormula.dryingTime}
+              onChange={(e) =>
+                handleChange("dryingTime", parseInt(e.target.value))
+              }
+            />
+            <TextField
+              label="Cobertura (m²/L)"
+              type="number"
+              value={newFormula.coverage}
+              onChange={(e) =>
+                handleChange("coverage", parseFloat(e.target.value))
+              }
+            />
+          </div>
 
           <Divider />
           <Typography variant="subtitle1">Ingredientes</Typography>
@@ -193,6 +195,7 @@ const CreateFormulaDialog = ({
                 }
                 sx={{ width: "120px" }}
               >
+                <MenuItem value="kg">kg</MenuItem>
                 <MenuItem value="g">g</MenuItem>
                 <MenuItem value="ml">ml</MenuItem>
                 <MenuItem value="L">L</MenuItem>
@@ -206,11 +209,26 @@ const CreateFormulaDialog = ({
               </IconButton>
             </Stack>
           ))}
-          <Button onClick={handleAddIngredient}>Agregar ingrediente</Button>
+          <div
+            style={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            <Button
+              color="inherit"
+              variant="outlined"
+              onClick={handleAddIngredient}
+              sx={{
+                maxWidth: "fit-content",
+              }}
+            >
+              Agregar ingrediente
+            </Button>
+          </div>
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
+        <Button onClick={onClose} color="inherit" variant="outlined">
+          Cancelar
+        </Button>
         <Button variant="contained" onClick={handleSubmit}>
           Guardar
         </Button>

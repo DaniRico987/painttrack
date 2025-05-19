@@ -13,5 +13,5 @@ interface Ingredient {
   id: number;
   name: string;
   quantity: number;
-  unit: "g" | "ml" | "L" | "unidades";
+  unit: "kg" | "g" | "ml" | "L" | "unidades";
 }

@@ -17,7 +17,7 @@ const theme = createTheme({
       primary: "#ffffff",
       secondary: "#f8bbd0", // Rose claro
     },
-    divider: "#880e4f",
+    divider: "#e91e63",
   },
   typography: {
     fontFamily: "Roboto, sans-serif",

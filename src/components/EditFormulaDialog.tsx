@@ -70,7 +70,7 @@ const EditFormulaDialog = ({
           id: Date.now() + Math.random(),
           name: "",
           quantity: 0,
-          unit: "g",
+          unit: "kg",
         },
       ],
     });
@@ -99,7 +99,7 @@ const EditFormulaDialog = ({
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>Editar fórmula</DialogTitle>
       <DialogContent>
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{ mt: 1 }}>
           <TextField
             label="Nombre"
             value={editedFormula.name}
@@ -120,6 +120,7 @@ const EditFormulaDialog = ({
             <MenuItem value="finish">Acabado</MenuItem>
             <MenuItem value="special">Especial</MenuItem>
           </TextField>
+          <div style={{ display: "flex", gap: "16px" }}>
           <TextField
             label="Cantidad total (L)"
             type="number"
@@ -144,6 +145,7 @@ const EditFormulaDialog = ({
               handleChange("coverage", parseFloat(e.target.value))
             }
           />
+          </div>
 
           <Divider />
           <Typography variant="subtitle1">Ingredientes</Typography>
@@ -184,6 +186,7 @@ const EditFormulaDialog = ({
                 }
                 sx={{ width: "120px" }}
               >
+                <MenuItem value="kg">kg</MenuItem>
                 <MenuItem value="g">g</MenuItem>
                 <MenuItem value="ml">ml</MenuItem>
                 <MenuItem value="L">L</MenuItem>
@@ -197,11 +200,26 @@ const EditFormulaDialog = ({
               </IconButton>
             </Stack>
           ))}
-          <Button onClick={handleAddIngredient}>Agregar ingrediente</Button>
+          <div
+            style={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            <Button
+              color="inherit"
+              variant="outlined"
+              onClick={handleAddIngredient}
+              sx={{
+                maxWidth: "fit-content",
+              }}
+            >
+              Agregar ingrediente
+            </Button>
+          </div>
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
+        <Button color="inherit" variant="outlined" onClick={onClose}>
+          Cancelar
+        </Button>
         <Button variant="contained" onClick={handleSave}>
           Guardar cambios
         </Button>
