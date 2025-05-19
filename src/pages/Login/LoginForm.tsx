@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Container,
+  IconButton,
+  InputAdornment,
   Paper,
   TextField,
   Typography,
@@ -10,11 +12,13 @@ import {
 import { useAuth } from "../../utils/AuthContext";
 import { useNavigate } from "react-router-dom";
 import CustomSnackbar from "../../components/CustomSnackbar";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const LoginForm = () => {
   const { login, role } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState<
@@ -30,6 +34,10 @@ const LoginForm = () => {
       navigate("/insumos");
     }
   }, [role, navigate]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const handleLogin = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -72,10 +80,19 @@ const LoginForm = () => {
             />
             <TextField
               label="Contraseña"
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={togglePasswordVisibility} edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
 
             <Button variant="contained" color="primary" type="submit">

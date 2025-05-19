@@ -251,7 +251,6 @@ const InputManager = () => {
                       </Button>
                       <Tooltip title="Eliminar">
                         <IconButton
-                          color="primary"
                           onClick={() => {
                             setPendingDeleteId(item.id);
                             setDialogOpen(true);

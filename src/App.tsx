@@ -9,6 +9,7 @@ import {
   Typography,
   ThemeProvider,
   CircularProgress,
+  GlobalStyles,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ExitToApp } from "@mui/icons-material";
@@ -67,6 +68,23 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      {/* Aquí el GlobalStyles para quitar flechitas en inputs tipo number */}
+      <GlobalStyles
+        styles={{
+          "input[type=number]::-webkit-outer-spin-button": {
+            WebkitAppearance: "none",
+            margin: 0,
+          },
+          "input[type=number]::-webkit-inner-spin-button": {
+            WebkitAppearance: "none",
+            margin: 0,
+          },
+          "input[type=number]": {
+            MozAppearance: "textfield",
+          },
+        }}
+      />
+
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
 
