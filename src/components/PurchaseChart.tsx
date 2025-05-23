@@ -13,19 +13,41 @@ import { Props } from "../interfaces/purchase";
 const PurchaseChart = ({ purchases }: Props) => {
   const theme = useTheme();
 
-  const grouped = purchases.reduce<Record<string, number>>((acc, curr) => {
-    acc[curr.product] = (acc[curr.product] || 0) + curr.quantity;
-    return acc;
-  }, {});
+  const N = 10; // cantidad de compras recientes a mostrar
 
+  // Ordena por fecha descendente (más reciente primero)
+  const sortedPurchases = [...purchases].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  // Toma las últimas N compras (más recientes)
+  const recentPurchases = sortedPurchases.slice(0, N);
+
+  // Agrupa la cantidad total por producto SOLO en esas compras recientes
+  const grouped = recentPurchases.reduce<Record<string, number>>(
+    (acc, curr) => {
+      acc[curr.product] = (acc[curr.product] || 0) + curr.quantity;
+      return acc;
+    },
+    {}
+  );
+
+  // Crea el arreglo de datos para el gráfico
   const data = Object.entries(grouped).map(([product, quantity]) => ({
     product,
     quantity,
   }));
 
   // Tooltip personalizado
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label, coordinate }: any) => {
     if (active && payload && payload.length) {
+      const maxWidth = 150;
+      let transformStyle = "translate(-50%, -100%)";
+
+      if (coordinate && coordinate.x > window.innerWidth - maxWidth) {
+        transformStyle = "translate(0, -100%)";
+      }
+
       return (
         <Paper
           elevation={3}
@@ -34,7 +56,13 @@ const PurchaseChart = ({ purchases }: Props) => {
             backgroundColor: theme.palette.background.paper,
             borderRadius: 1,
             boxShadow: theme.shadows[3],
-            transform: "translate(-50%, -100%)",
+            position: "absolute",
+            left: coordinate.x,
+            top: 10,
+            transform: transformStyle,
+            pointerEvents: "none",
+            whiteSpace: "nowrap",
+            zIndex: 9999,
           }}
         >
           <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
@@ -68,7 +96,7 @@ const PurchaseChart = ({ purchases }: Props) => {
         gutterBottom
         sx={{ fontWeight: "bold", color: theme.palette.primary.main }}
       >
-        Cantidad de productos comprados
+        Cantidad de productos comprados (últimas {N} compras)
       </Typography>
       <Box
         sx={{

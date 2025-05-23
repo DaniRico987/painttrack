@@ -167,7 +167,7 @@ const PurchaseManager = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" pb={3} gutterBottom>
         Gestor de compras
       </Typography>
 
