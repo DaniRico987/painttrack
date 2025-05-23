@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "product": "Pintura blanca base",
+    "supplier": "Proveedor A",
+    "date": "2025-04-01",
+    "quantity": 50,
+    "totalCost": 150000
+  },
+  {
+    "id": 2,
+    "product": "Solvente industrial",
+    "supplier": "Proveedor B",
+    "date": "2025-04-03",
+    "quantity": 30,
+    "totalCost": 45000
+  },
+  {
+    "id": 3,
+    "product": "Pigmento azul",
+    "supplier": "Proveedor A",
+    "date": "2025-05-10",
+    "quantity": 20,
+    "totalCost": 60000
+  },
+  {
+    "id": 4,
+    "product": "Brochas de pintura",
+    "supplier": "Proveedor C",
+    "date": "2025-05-15",
+    "quantity": 100,
+    "totalCost": 20000
+  },
+  {
+    "id": 5,
+    "product": "Rodillos de pintura",
+    "supplier": "Proveedor D",
+    "date": "2025-06-01",
+    "quantity": 50,
+    "totalCost": 25000
+  },
+  {
+    "id": 6,
+    "product": "Cinta adhesiva",
+    "supplier": "Proveedor E",
+    "date": "2025-06-10",
+    "quantity": 200,
+    "totalCost": 10000
+  }
+]
