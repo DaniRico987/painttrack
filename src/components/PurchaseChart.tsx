@@ -8,11 +8,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { Paper, Typography, Box, useTheme } from "@mui/material";
-import { Purchase } from "../interfaces/purchase";
-
-interface Props {
-  purchases: Purchase[];
-}
+import { Props } from "../interfaces/purchase";
 
 const PurchaseChart = ({ purchases }: Props) => {
   const theme = useTheme();
@@ -27,16 +23,43 @@ const PurchaseChart = ({ purchases }: Props) => {
     quantity,
   }));
 
+  // Tooltip personalizado
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <Paper
+          elevation={3}
+          sx={{
+            padding: "8px 12px",
+            backgroundColor: theme.palette.background.paper,
+            borderRadius: 1,
+            boxShadow: theme.shadows[3],
+            transform: "translate(-50%, -100%)",
+          }}
+        >
+          <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
+            {label}
+          </Typography>
+          <Typography variant="body2">Cantidad: {payload[0].value}</Typography>
+        </Paper>
+      );
+    }
+    return null;
+  };
+
   return (
     <Paper
       sx={{
-        p: 3,
+        pt: 3,
+        pl: 2,
+        pr: 2,
+        pb: 0,
         borderRadius: 3,
         boxShadow: theme.shadows[3],
         backgroundColor: theme.palette.background.paper,
         width: "100%",
         maxWidth: 1200,
-        mx: "auto", // Centrar horizontalmente
+        mx: "auto",
       }}
     >
       <Typography
@@ -49,7 +72,7 @@ const PurchaseChart = ({ purchases }: Props) => {
       </Typography>
       <Box
         sx={{
-          height: { xs: 300, sm: 350, md: 400 }, // altura adaptable según pantalla
+          height: { xs: 300, sm: 350, md: 400 },
           mt: 2,
         }}
       >
@@ -75,11 +98,11 @@ const PurchaseChart = ({ purchases }: Props) => {
               tick={{ fontSize: 12, fill: theme.palette.text.secondary }}
             />
             <Tooltip
-              contentStyle={{
-                backgroundColor: theme.palette.background.paper,
-                borderRadius: 8,
-              }}
+              content={<CustomTooltip />}
               cursor={{ fill: theme.palette.action.hover }}
+              animationEasing="ease-in-out"
+              animationDuration={300}
+              position={{ y: 0 }}
             />
             <Bar
               dataKey="quantity"

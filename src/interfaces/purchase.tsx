@@ -12,3 +12,7 @@ export interface PurchaseCardsProps {
   onEdit: (purchase: Purchase) => void;
   onDelete: (purchaseId: number) => void;
 }
+
+export interface Props {
+  purchases: Purchase[];
+}
