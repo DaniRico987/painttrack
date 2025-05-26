@@ -75,7 +75,7 @@ const CreateInputDialog = ({ open, onClose, onCreate }: Props) => {
             label="Precio por unidad"
             type="number"
             value={form.unitPrice}
-            onChange={(e) => handleChange("unitPrice", e.target.value)}
+            onChange={(e) => handleChange("unitPrice", Number(e.target.value))}
             fullWidth
           />
           <TextField

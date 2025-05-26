@@ -80,6 +80,11 @@ const Formulas = () => {
       <Typography variant="h4" gutterBottom>
         Fórmulas de Pintura
       </Typography>
+      <Typography variant="subtitle1" color="text.primary">
+        Aquí puedes buscar y ver las fórmulas de pintura disponibles. Utiliza el
+        campo de búsqueda para filtrar por nombre, descripción, tipo de mezcla o
+        ingredientes.
+      </Typography>
 
       <TextField
         label="Buscar fórmula"

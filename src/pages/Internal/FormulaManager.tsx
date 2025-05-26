@@ -171,6 +171,10 @@ const FormulaManager = () => {
       <Typography variant="h4" gutterBottom>
         Gestor de fórmulas
       </Typography>
+      <Typography variant="subtitle1" pb={3} color="text.primary">
+        Administra las fórmulas de pintura, incluyendo su tipo, cantidad total,
+        tiempo de secado, cobertura y más.
+      </Typography>
 
       <Button
         variant="contained"

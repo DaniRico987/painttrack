@@ -198,8 +198,12 @@ const PurchaseManager = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" pb={3} gutterBottom>
+      <Typography variant="h4" gutterBottom>
         Gestor de compras
+      </Typography>
+      <Typography variant="subtitle1" pb={3} color="text.primary">
+        Visualiza, registra y administra todas las compras realizadas de insumos
+        y materiales.
       </Typography>
 
       <PurchaseStatsPanel purchases={purchases} />
