@@ -9,6 +9,7 @@ import {
   Stack,
 } from "@mui/material";
 import { Product } from "../interfaces/product";
+import CustomSnackbar from "./CustomSnackbar";
 
 interface EditProductDialogProps {
   open: boolean;
@@ -26,6 +27,8 @@ const EditProductDialog: React.FC<EditProductDialogProps> = ({
   const [editedProduct, setEditedProduct] = React.useState<Product | null>(
     null
   );
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
 
   React.useEffect(() => {
     setEditedProduct(product);
@@ -42,10 +45,29 @@ const EditProductDialog: React.FC<EditProductDialogProps> = ({
   };
 
   const handleSave = () => {
-    if (editedProduct) {
-      onSave(editedProduct);
-      onClose();
+    if (!editedProduct) return;
+    if (editedProduct.name.trim() === "") {
+      setSnackbarMessage("El campo 'Nombre' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
     }
+    if (editedProduct.description.trim() === "") {
+      setSnackbarMessage("El campo 'Descripción' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (editedProduct.quantity <= 0) {
+      setSnackbarMessage("La 'Cantidad' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (editedProduct.unitPrice <= 0) {
+      setSnackbarMessage("El 'Precio por unidad' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    onSave(editedProduct);
+    onClose();
   };
 
   return (
@@ -94,6 +116,12 @@ const EditProductDialog: React.FC<EditProductDialogProps> = ({
           Guardar
         </Button>
       </DialogActions>
+      <CustomSnackbar
+        open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+        severity="warning"
+      />
     </Dialog>
   );
 };

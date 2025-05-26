@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CustomSnackbar from "./CustomSnackbar";
 
 interface CreateFormulaDialogProps {
   open: boolean;
@@ -42,6 +43,8 @@ const CreateFormulaDialog = ({
     coverage: 0,
     ingredients: [defaultIngredient],
   });
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleChange = (field: keyof Formula, value: any) => {
     setNewFormula((prev) => ({
@@ -88,7 +91,75 @@ const CreateFormulaDialog = ({
     }));
   };
 
+  const isFormValid =
+    newFormula.name.trim() !== "" &&
+    newFormula.description.trim() !== "" &&
+    newFormula.totalAmount > 0 &&
+    newFormula.dryingTime > 0 &&
+    newFormula.coverage > 0 &&
+    newFormula.ingredients.length > 0 &&
+    newFormula.ingredients.every(
+      (ing) =>
+        ing.name.trim() !== "" &&
+        ing.quantity > 0 &&
+        ing.unit.trim() !== ""
+    );
+
   const handleSubmit = () => {
+    // Validaciones específicas y mensajes detallados
+    if (newFormula.name.trim() === "") {
+      setSnackbarMessage("El campo 'Nombre' de la fórmula es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (newFormula.description.trim() === "") {
+      setSnackbarMessage("El campo 'Descripción' de la fórmula es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (newFormula.totalAmount <= 0) {
+      setSnackbarMessage("La 'Cantidad total' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (newFormula.dryingTime <= 0) {
+      setSnackbarMessage("El 'Tiempo de secado' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (newFormula.coverage <= 0) {
+      setSnackbarMessage("La 'Cobertura' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (newFormula.ingredients.length === 0) {
+      setSnackbarMessage("Debes agregar al menos un ingrediente.");
+      setSnackbarOpen(true);
+      return;
+    }
+    for (let i = 0; i < newFormula.ingredients.length; i++) {
+      const ing = newFormula.ingredients[i];
+      if (ing.name.trim() === "") {
+        setSnackbarMessage(`El nombre del ingrediente #${i + 1} es obligatorio.`);
+        setSnackbarOpen(true);
+        return;
+      }
+      if (ing.quantity <= 0) {
+        setSnackbarMessage(
+          `La cantidad del ingrediente '${ing.name || `#${i + 1}`}' debe ser mayor a 0.`
+        );
+        setSnackbarOpen(true);
+        return;
+      }
+      if (ing.unit.trim() === "") {
+        setSnackbarMessage(
+          `La unidad del ingrediente '${ing.name || `#${i + 1}`}' es obligatoria.`
+        );
+        setSnackbarOpen(true);
+        return;
+      }
+    }
+
     onCreate(newFormula);
     onClose();
     setNewFormula({
@@ -233,6 +304,11 @@ const CreateFormulaDialog = ({
           Guardar
         </Button>
       </DialogActions>
+      <CustomSnackbar
+        open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+      />
     </Dialog>
   );
 };

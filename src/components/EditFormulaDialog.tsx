@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CustomSnackbar from "./CustomSnackbar";
 
 interface EditFormulaDialogProps {
   open: boolean;
@@ -28,6 +29,8 @@ const EditFormulaDialog = ({
   onSave,
 }: EditFormulaDialogProps) => {
   const [editedFormula, setEditedFormula] = useState<Formula | null>(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
     if (product) {
@@ -87,10 +90,63 @@ const EditFormulaDialog = ({
   };
 
   const handleSave = () => {
-    if (editedFormula) {
-      onSave(editedFormula);
-      onClose();
+    if (!editedFormula) return;
+
+    if (editedFormula.name.trim() === "") {
+      setSnackbarMessage("El campo 'Nombre' de la fórmula es obligatorio.");
+      setSnackbarOpen(true);
+      return;
     }
+    if (editedFormula.description.trim() === "") {
+      setSnackbarMessage("El campo 'Descripción' de la fórmula es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (editedFormula.totalAmount <= 0) {
+      setSnackbarMessage("La 'Cantidad total' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (editedFormula.dryingTime <= 0) {
+      setSnackbarMessage("El 'Tiempo de secado' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (editedFormula.coverage <= 0) {
+      setSnackbarMessage("La 'Cobertura' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (editedFormula.ingredients.length === 0) {
+      setSnackbarMessage("Debes agregar al menos un ingrediente.");
+      setSnackbarOpen(true);
+      return;
+    }
+    for (let i = 0; i < editedFormula.ingredients.length; i++) {
+      const ing = editedFormula.ingredients[i];
+      if (ing.name.trim() === "") {
+        setSnackbarMessage(`El nombre del ingrediente #${i + 1} es obligatorio.`);
+        setSnackbarOpen(true);
+        return;
+      }
+      if (ing.quantity <= 0) {
+        setSnackbarMessage(
+          `La cantidad del ingrediente '${ing.name || `#${i + 1}`}' debe ser mayor a 0.`
+        );
+        setSnackbarOpen(true);
+        return;
+      }
+      if (ing.unit.trim() === "") {
+        setSnackbarMessage(
+          `La unidad del ingrediente '${ing.name || `#${i + 1}`}' es obligatoria.`
+        );
+        setSnackbarOpen(true);
+        return;
+      }
+    }
+
+    onSave(editedFormula);
+    onClose();
   };
 
   if (!editedFormula) return null;
@@ -224,6 +280,12 @@ const EditFormulaDialog = ({
           Guardar cambios
         </Button>
       </DialogActions>
+      <CustomSnackbar
+        open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+        severity="warning"
+      />
     </Dialog>
   );
 };

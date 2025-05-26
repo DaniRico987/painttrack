@@ -54,16 +54,18 @@ const CreateProductDialog: React.FC<CreateProductDialogProps> = ({
   };
 
   const handleSubmit = () => {
-    if (!form.name.trim() || !form.description.trim()) {
-      showSnackbar("Todos los campos son obligatorios.", "warning");
+    if (!form.name.trim()) {
+      showSnackbar("El campo 'Nombre' es obligatorio.", "warning");
       return;
     }
-
+    if (!form.description.trim()) {
+      showSnackbar("El campo 'Descripción' es obligatorio.", "warning");
+      return;
+    }
     if (form.quantity < 1) {
       showSnackbar("La cantidad mínima es 1.", "warning");
       return;
     }
-
     if (form.unitPrice < 1) {
       showSnackbar("El precio mínimo por unidad es $1.", "warning");
       return;

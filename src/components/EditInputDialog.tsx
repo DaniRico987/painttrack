@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Input } from "../interfaces/input";
+import CustomSnackbar from "./CustomSnackbar";
 
 interface Props {
   open: boolean;
@@ -19,6 +20,8 @@ interface Props {
 
 const EditInputDialog = ({ open, onClose, input, onSave }: Props) => {
   const [form, setForm] = useState<Input | null>(input);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
     setForm(input);
@@ -30,10 +33,39 @@ const EditInputDialog = ({ open, onClose, input, onSave }: Props) => {
   };
 
   const handleSave = () => {
-    if (form) {
-      onSave(form);
-      onClose();
+    if (!form) return;
+    if (form.name.trim() === "") {
+      setSnackbarMessage("El campo 'Nombre' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
     }
+    if (form.description.trim() === "") {
+      setSnackbarMessage("El campo 'Descripción' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (form.quantity <= 0) {
+      setSnackbarMessage("La 'Cantidad' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (form.unitPrice <= 0) {
+      setSnackbarMessage("El 'Precio por unidad' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (form.type.trim() === "") {
+      setSnackbarMessage("El campo 'Tipo' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (form.unit.trim() === "") {
+      setSnackbarMessage("El campo 'Unidad' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    onSave(form);
+    onClose();
   };
 
   return (
@@ -65,7 +97,7 @@ const EditInputDialog = ({ open, onClose, input, onSave }: Props) => {
               label="Precio por unidad"
               type="number"
               value={form.unitPrice}
-              onChange={(e) => handleChange("type", e.target.value)}
+              onChange={(e) => handleChange("unitPrice", Number(e.target.value))}
               fullWidth
             />
             <TextField
@@ -89,6 +121,12 @@ const EditInputDialog = ({ open, onClose, input, onSave }: Props) => {
           Guardar
         </Button>
       </DialogActions>
+      <CustomSnackbar
+        open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+        severity="warning"
+      />
     </Dialog>
   );
 };

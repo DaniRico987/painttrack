@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Purchase } from "../interfaces/purchase";
+import CustomSnackbar from "./CustomSnackbar";
 
 interface Props {
   open: boolean;
@@ -24,6 +25,9 @@ const EditPurchaseDialog = ({ open, onClose, onSave, purchase }: Props) => {
   const [quantity, setQuantity] = useState<number>(0);
   const [totalCost, setTotalCost] = useState<number>(0);
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
   useEffect(() => {
     if (purchase) {
       setProduct(purchase.product);
@@ -36,6 +40,32 @@ const EditPurchaseDialog = ({ open, onClose, onSave, purchase }: Props) => {
 
   const handleSubmit = () => {
     if (!purchase) return;
+    if (product.trim() === "") {
+      setSnackbarMessage("El campo 'Producto' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (supplier.trim() === "") {
+      setSnackbarMessage("El campo 'Proveedor' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (date.trim() === "") {
+      setSnackbarMessage("El campo 'Fecha' es obligatorio.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (quantity <= 0) {
+      setSnackbarMessage("La 'Cantidad' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+    if (totalCost <= 0) {
+      setSnackbarMessage("El 'Costo total' debe ser mayor a 0.");
+      setSnackbarOpen(true);
+      return;
+    }
+
     const updated: Purchase = {
       ...purchase,
       product,
@@ -96,13 +126,16 @@ const EditPurchaseDialog = ({ open, onClose, onSave, purchase }: Props) => {
         <Button
           variant="contained"
           onClick={handleSubmit}
-          disabled={
-            !product || !supplier || !date || quantity <= 0 || totalCost <= 0
-          }
         >
           Guardar cambios
         </Button>
       </DialogActions>
+      <CustomSnackbar
+        open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+        severity="warning"
+      />
     </Dialog>
   );
 };
