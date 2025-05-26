@@ -6,7 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Divider,
   Box,
   Typography,
   useTheme,
@@ -62,7 +61,6 @@ const Sidebar: React.FC<SidebarProps> = ({
       <Toolbar>
         <Typography variant="h6">Menú</Typography>
       </Toolbar>
-      <Divider />
       <List>
         {menuItems.map((item) => {
           if (item.section) {
@@ -134,6 +132,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             [`& .MuiDrawer-paper`]: {
               width: drawerWidth,
               boxSizing: "border-box",
+              border: "none",
             },
           }}
           open

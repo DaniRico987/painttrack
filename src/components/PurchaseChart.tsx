@@ -94,7 +94,7 @@ const PurchaseChart = ({ purchases }: Props) => {
         variant="h5"
         component="h2"
         gutterBottom
-        sx={{ fontWeight: "bold", color: theme.palette.primary.main }}
+        sx={{ fontWeight: "bold", color: theme.palette.text.primary }}
       >
         Cantidad de productos comprados (últimas {N} compras)
       </Typography>
@@ -115,7 +115,7 @@ const PurchaseChart = ({ purchases }: Props) => {
             />
             <XAxis
               dataKey="product"
-              tick={{ fontSize: 12, fill: theme.palette.text.secondary }}
+              tick={{ fontSize: 12, fill: theme.palette.text.primary }}
               angle={-45}
               textAnchor="end"
               interval={0}
@@ -123,7 +123,7 @@ const PurchaseChart = ({ purchases }: Props) => {
             />
             <YAxis
               allowDecimals={false}
-              tick={{ fontSize: 12, fill: theme.palette.text.secondary }}
+              tick={{ fontSize: 12, fill: theme.palette.text.primary }}
             />
             <Tooltip
               content={<CustomTooltip />}

@@ -4,20 +4,20 @@ const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#e91e63", // Rose
+      main: "#ba6b7a", // Rosado suave
     },
     secondary: {
-      main: "#f44336", // Red
+      main: "#d26c6c", // Rojo pastel
     },
     background: {
-      default: "#121212", // Fondo principal oscuro
-      paper: "#1e1e1e", // Tarjetas y superficies
+      default: "#181818",
+      paper: "#242424",
     },
     text: {
-      primary: "#ffffff",
-      secondary: "#f8bbd0", // Rose claro
+      primary: "#e0e0e0",
+      secondary: "#f4a9b8",
     },
-    divider: "#e91e63",
+    divider: "#ba6b7a",
   },
   typography: {
     fontFamily: "Roboto, sans-serif",
@@ -31,9 +31,9 @@ const theme = createTheme({
         root: {
           borderRadius: 10,
           fontWeight: "bold",
-          color: "#ffffff",
+          color: "#e0e0e0",
           "&:hover": {
-            backgroundColor: "#ad1457", // tono más oscuro
+            backgroundColor: "#8f4c59",
           },
         },
       },
@@ -42,14 +42,14 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
-          backgroundColor: "#1e1e1e",
+          backgroundColor: "#242424",
         },
       },
     },
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: "#e91e63",
+          backgroundColor: "#ba6b7a",
           "& .MuiTableCell-head": {
             color: "#ffffff",
             fontWeight: "bold",
@@ -60,8 +60,8 @@ const theme = createTheme({
     MuiTableCell: {
       styleOverrides: {
         root: {
-          borderBottom: "1px solid #333",
-          color: "#ffffff",
+          borderBottom: "1px solid #444",
+          color: "#e0e0e0",
         },
       },
     },
@@ -69,9 +69,9 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "&.Mui-active": {
-            color: "#ffffff",
+            color: "#e0e0e0",
             "& .MuiTableSortLabel-icon": {
-              color: "#ffffff",
+              color: "#e0e0e0",
             },
           },
         },
@@ -79,5 +79,4 @@ const theme = createTheme({
     },
   },
 });
-
 export default theme;

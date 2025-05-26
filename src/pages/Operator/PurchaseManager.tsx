@@ -16,6 +16,7 @@ import {
   Tooltip,
   useMediaQuery,
   useTheme,
+  TableSortLabel,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -113,6 +114,10 @@ const PurchaseManager = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+  // Estados para ordenar
+  const [orderBy, setOrderBy] = useState<keyof Purchase>("date");
+  const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("desc");
+
   useEffect(() => {
     setPurchases(data);
   }, []);
@@ -160,7 +165,33 @@ const PurchaseManager = () => {
     setSnackbarOpen(true);
   };
 
-  const paginatedPurchases = purchases.slice(
+  // Manejar ordenamiento
+  const handleSort = (field: keyof Purchase) => {
+    if (orderBy === field) {
+      setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
+    } else {
+      setOrderBy(field);
+      setOrderDirection("asc");
+    }
+    setPage(0);
+  };
+
+  // Ordenar antes de paginar
+  const sortedPurchases = [...purchases].sort((a, b) => {
+    let aValue = a[orderBy];
+    let bValue = b[orderBy];
+
+    if (orderBy === "date") {
+      aValue = new Date(aValue as string).getTime();
+      bValue = new Date(bValue as string).getTime();
+    }
+
+    if (aValue < bValue) return orderDirection === "asc" ? -1 : 1;
+    if (aValue > bValue) return orderDirection === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  const paginatedPurchases = sortedPurchases.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
@@ -199,11 +230,51 @@ const PurchaseManager = () => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Producto</TableCell>
-                    <TableCell>Proveedor</TableCell>
-                    <TableCell>Fecha</TableCell>
-                    <TableCell>Cantidad</TableCell>
-                    <TableCell>Costo total</TableCell>
+                    <TableCell>
+                      <TableSortLabel
+                        active={orderBy === "product"}
+                        direction={orderDirection}
+                        onClick={() => handleSort("product")}
+                      >
+                        Producto
+                      </TableSortLabel>
+                    </TableCell>
+                    <TableCell>
+                      <TableSortLabel
+                        active={orderBy === "supplier"}
+                        direction={orderDirection}
+                        onClick={() => handleSort("supplier")}
+                      >
+                        Proveedor
+                      </TableSortLabel>
+                    </TableCell>
+                    <TableCell>
+                      <TableSortLabel
+                        active={orderBy === "date"}
+                        direction={orderDirection}
+                        onClick={() => handleSort("date")}
+                      >
+                        Fecha
+                      </TableSortLabel>
+                    </TableCell>
+                    <TableCell>
+                      <TableSortLabel
+                        active={orderBy === "quantity"}
+                        direction={orderDirection}
+                        onClick={() => handleSort("quantity")}
+                      >
+                        Cantidad
+                      </TableSortLabel>
+                    </TableCell>
+                    <TableCell>
+                      <TableSortLabel
+                        active={orderBy === "totalCost"}
+                        direction={orderDirection}
+                        onClick={() => handleSort("totalCost")}
+                      >
+                        Costo total
+                      </TableSortLabel>
+                    </TableCell>
                     <TableCell>Acciones</TableCell>
                   </TableRow>
                 </TableHead>
@@ -277,18 +348,23 @@ const PurchaseManager = () => {
         onCreate={handleCreatePurchase}
       />
 
-      <EditPurchaseDialog
-        open={editDialogOpen}
-        onClose={() => setEditDialogOpen(false)}
-        purchase={selectedPurchase}
-        onSave={handleSavePurchase}
-      />
+      {selectedPurchase && (
+        <EditPurchaseDialog
+          open={editDialogOpen}
+          onClose={() => {
+            setEditDialogOpen(false);
+            setSelectedPurchase(null);
+          }}
+          purchase={selectedPurchase}
+          onSave={handleSavePurchase}
+        />
+      )}
 
       <CustomSnackbar
         open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
         message={snackbarMessage}
         severity={snackbarSeverity}
-        onClose={() => setSnackbarOpen(false)}
       />
     </Box>
   );

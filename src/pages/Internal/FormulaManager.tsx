@@ -15,6 +15,7 @@ import {
   TablePagination,
   Stack,
   useMediaQuery,
+  TableSortLabel,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -24,6 +25,8 @@ import AlertDialog from "../../components/AlertDialog";
 import CustomSnackbar from "../../components/CustomSnackbar";
 import CreateFormulaDialog from "../../components/CreateFormulaDialog";
 import EditFormulaDialog from "../../components/EditFormulaDialog";
+
+type Order = "asc" | "desc";
 
 const FormulaManager = () => {
   const [formulas, setFormulas] = useState<Formula[]>([]);
@@ -43,6 +46,9 @@ const FormulaManager = () => {
     "success"
   );
 
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<keyof Formula>("name");
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -58,6 +64,51 @@ const FormulaManager = () => {
       }))
     );
   }, []);
+
+  const handleRequestSort = (property: keyof Formula) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
+  const stableSort = <T,>(array: T[], comparator: (a: T, b: T) => number) => {
+    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+  };
+
+  const getComparator = (
+    order: Order,
+    orderBy: keyof Formula
+  ): ((a: Formula, b: Formula) => number) => {
+    return order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  };
+
+  const descendingComparator = (
+    a: Formula,
+    b: Formula,
+    orderBy: keyof Formula
+  ) => {
+    const aValue = a[orderBy];
+    const bValue = b[orderBy];
+
+    if (typeof aValue === "number" && typeof bValue === "number") {
+      return bValue - aValue;
+    }
+
+    if (typeof aValue === "string" && typeof bValue === "string") {
+      return bValue.localeCompare(aValue);
+    }
+
+    // Fallback para otros tipos o si no son comparables, no cambia el orden
+    return 0;
+  };
 
   const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
@@ -107,7 +158,10 @@ const FormulaManager = () => {
     setSnackbarOpen(true);
   };
 
-  const paginatedFormulas = formulas.slice(
+  // Ordenar fórmulas antes de paginar
+  const sortedFormulas = stableSort(formulas, getComparator(order, orderBy));
+
+  const paginatedFormulas = sortedFormulas.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
@@ -183,11 +237,64 @@ const FormulaManager = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Tipo</TableCell>
-                <TableCell>Cantidad total (L)</TableCell>
-                <TableCell>Tiempo secado (min)</TableCell>
-                <TableCell>Cobertura (m²/L)</TableCell>
+                <TableCell sortDirection={orderBy === "name" ? order : false}>
+                  <TableSortLabel
+                    active={orderBy === "name"}
+                    direction={orderBy === "name" ? order : "asc"}
+                    onClick={() => handleRequestSort("name")}
+                  >
+                    Nombre
+                  </TableSortLabel>
+                </TableCell>
+
+                <TableCell
+                  sortDirection={orderBy === "mixType" ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === "mixType"}
+                    direction={orderBy === "mixType" ? order : "asc"}
+                    onClick={() => handleRequestSort("mixType")}
+                  >
+                    Tipo
+                  </TableSortLabel>
+                </TableCell>
+
+                <TableCell
+                  sortDirection={orderBy === "totalAmount" ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === "totalAmount"}
+                    direction={orderBy === "totalAmount" ? order : "asc"}
+                    onClick={() => handleRequestSort("totalAmount")}
+                  >
+                    Cantidad total (L)
+                  </TableSortLabel>
+                </TableCell>
+
+                <TableCell
+                  sortDirection={orderBy === "dryingTime" ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === "dryingTime"}
+                    direction={orderBy === "dryingTime" ? order : "asc"}
+                    onClick={() => handleRequestSort("dryingTime")}
+                  >
+                    Tiempo secado (min)
+                  </TableSortLabel>
+                </TableCell>
+
+                <TableCell
+                  sortDirection={orderBy === "coverage" ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === "coverage"}
+                    direction={orderBy === "coverage" ? order : "asc"}
+                    onClick={() => handleRequestSort("coverage")}
+                  >
+                    Cobertura (m²/L)
+                  </TableSortLabel>
+                </TableCell>
+
                 <TableCell>Ingredientes</TableCell>
                 <TableCell>Descripción</TableCell>
                 <TableCell>Acciones</TableCell>
