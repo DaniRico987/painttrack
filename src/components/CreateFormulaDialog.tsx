@@ -306,6 +306,7 @@ const CreateFormulaDialog = ({
       </DialogActions>
       <CustomSnackbar
         open={snackbarOpen}
+        severity="warning"
         onClose={() => setSnackbarOpen(false)}
         message={snackbarMessage}
       />
