@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "client": "Ferretería López",
+    "product": "Pintura acrílica blanca",
+    "date": "2025-05-01",
+    "quantity": 10,
+    "totalPrice": 150000
+  },
+  {
+    "id": 2,
+    "client": "Construmax",
+    "product": "Pintura esmalte rojo",
+    "date": "2025-05-05",
+    "quantity": 5,
+    "totalPrice": 95000
+  },
+  {
+    "id": 3,
+    "client": "Pinturas del Norte",
+    "product": "Pintura vinilo negro",
+    "date": "2025-05-10",
+    "quantity": 8,
+    "totalPrice": 124000
+  }
+]

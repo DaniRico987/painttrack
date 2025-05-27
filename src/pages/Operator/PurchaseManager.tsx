@@ -59,13 +59,13 @@ const PurchaseCards = ({ purchases, onEdit, onDelete }: PurchaseCardsProps) => {
           <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
             Producto: {purchase.product}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.primary">
             Proveedor: {purchase.supplier}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.primary">
             Fecha: {purchase.date}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.primary">
             Cantidad: {purchase.quantity}
           </Typography>
           <Typography variant="body2" color="text.secondary">

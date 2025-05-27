@@ -161,13 +161,13 @@ const Inventory = () => {
                 <Typography variant="subtitle1" fontWeight="bold">
                   {item.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
+                <Typography variant="body2" color="text.primary" gutterBottom>
                   {item.description}
                 </Typography>
                 <Typography variant="body2">
                   <strong>Cantidad:</strong> {item.quantity}
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="body2" color="text.secondary">
                   <strong>Precio por unidad:</strong> $
                   {item.unitPrice.toFixed(2)}
                 </Typography>
