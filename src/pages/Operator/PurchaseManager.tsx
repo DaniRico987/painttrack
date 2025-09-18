@@ -29,19 +29,20 @@ import EditPurchaseDialog from "../../components/EditPurchaseDialog";
 import PurchaseStatsPanel from "../../components/PurchaseStatsPanel";
 import PurchaseChart from "../../components/PurchaseChart";
 
+function capitalize(text: string) {
+  if (!text) return "";
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
 const PurchaseCards = ({ purchases, onEdit, onDelete }: PurchaseCardsProps) => {
   const theme = useTheme();
 
   return (
     <Box
       sx={{
-        display: "grid",
+        display: "flex",
+        flexWrap: "wrap",
         gap: 2,
-        gridTemplateColumns: {
-          xs: "1fr",
-          sm: "1fr 1fr",
-          md: "1fr 1fr 1fr",
-        },
         width: "100%",
       }}
     >
@@ -50,6 +51,8 @@ const PurchaseCards = ({ purchases, onEdit, onDelete }: PurchaseCardsProps) => {
           key={purchase.id}
           elevation={3}
           sx={{
+            flex: "1 1 320px",
+            minWidth: 220,
             p: 2,
             borderRadius: 2,
             boxShadow: theme.shadows[3],
@@ -57,19 +60,19 @@ const PurchaseCards = ({ purchases, onEdit, onDelete }: PurchaseCardsProps) => {
           }}
         >
           <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-            Producto: {purchase.product}
+            {capitalize(`producto: ${purchase.product}`)}
           </Typography>
           <Typography variant="body2" color="text.primary">
-            Proveedor: {purchase.supplier}
+            {capitalize(`proveedor: ${purchase.supplier}`)}
           </Typography>
           <Typography variant="body2" color="text.primary">
-            Fecha: {purchase.date}
+            {capitalize(`fecha: ${purchase.date}`)}
           </Typography>
           <Typography variant="body2" color="text.primary">
-            Cantidad: {purchase.quantity}
+            {capitalize(`cantidad: ${purchase.quantity}`)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Costo total: ${purchase.totalCost.toLocaleString()}
+            {capitalize(`costo total: $${purchase.totalCost.toLocaleString()}`)}
           </Typography>
           <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
             <Button
@@ -78,9 +81,9 @@ const PurchaseCards = ({ purchases, onEdit, onDelete }: PurchaseCardsProps) => {
               startIcon={<EditOutlinedIcon />}
               onClick={() => onEdit(purchase)}
             >
-              Editar
+              {capitalize("editar")}
             </Button>
-            <Tooltip title="Eliminar">
+            <Tooltip title={capitalize("eliminar")}>
               <IconButton onClick={() => onDelete(purchase.id)}>
                 <DeleteOutlinedIcon />
               </IconButton>
@@ -173,165 +176,132 @@ const PurchaseManager = () => {
       setOrderBy(field);
       setOrderDirection("asc");
     }
-    setPage(0);
   };
 
-  // Ordenar antes de paginar
+  // Ordenar y paginar las compras
   const sortedPurchases = [...purchases].sort((a, b) => {
-    let aValue = a[orderBy];
-    let bValue = b[orderBy];
-
-    if (orderBy === "date") {
-      aValue = new Date(aValue as string).getTime();
-      bValue = new Date(bValue as string).getTime();
+    if (orderDirection === "asc") {
+      return a[orderBy] > b[orderBy] ? 1 : -1;
+    } else {
+      return a[orderBy] < b[orderBy] ? 1 : -1;
     }
-
-    if (aValue < bValue) return orderDirection === "asc" ? -1 : 1;
-    if (aValue > bValue) return orderDirection === "asc" ? 1 : -1;
-    return 0;
   });
-
   const paginatedPurchases = sortedPurchases.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Gestor de compras
+    <Box sx={{ p: isSmallScreen ? 1 : 3 }}>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
+        Gestión de Compras
       </Typography>
-      <Typography variant="subtitle1" pb={3} color="text.primary">
-        Visualiza, registra y administra todas las compras realizadas de insumos
-        y materiales.
-      </Typography>
-
+      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setCreateDialogOpen(true)}
+        >
+          Registrar compra
+        </Button>
+      </Stack>
       <PurchaseStatsPanel purchases={purchases} />
       <PurchaseChart purchases={purchases} />
-
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{ my: 2 }}
-        onClick={() => setCreateDialogOpen(true)}
-      >
-        Registrar compra
-      </Button>
-
-      {isSmallScreen ? (
-        <PurchaseCards
-          purchases={paginatedPurchases}
-          onEdit={handleEdit}
-          onDelete={(id) => {
-            setPendingDeleteId(id);
-            setDialogOpen(true);
-          }}
-        />
-      ) : (
-        <>
-          <Box sx={{ overflowX: "auto" }}>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <TableSortLabel
-                        active={orderBy === "product"}
-                        direction={orderDirection}
-                        onClick={() => handleSort("product")}
-                      >
-                        Producto
-                      </TableSortLabel>
-                    </TableCell>
-                    <TableCell>
-                      <TableSortLabel
-                        active={orderBy === "supplier"}
-                        direction={orderDirection}
-                        onClick={() => handleSort("supplier")}
-                      >
-                        Proveedor
-                      </TableSortLabel>
-                    </TableCell>
-                    <TableCell>
-                      <TableSortLabel
-                        active={orderBy === "date"}
-                        direction={orderDirection}
-                        onClick={() => handleSort("date")}
-                      >
-                        Fecha
-                      </TableSortLabel>
-                    </TableCell>
-                    <TableCell>
-                      <TableSortLabel
-                        active={orderBy === "quantity"}
-                        direction={orderDirection}
-                        onClick={() => handleSort("quantity")}
-                      >
-                        Cantidad
-                      </TableSortLabel>
-                    </TableCell>
-                    <TableCell>
-                      <TableSortLabel
-                        active={orderBy === "totalCost"}
-                        direction={orderDirection}
-                        onClick={() => handleSort("totalCost")}
-                      >
-                        Costo total
-                      </TableSortLabel>
-                    </TableCell>
-                    <TableCell>Acciones</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {paginatedPurchases.map((purchase) => (
-                    <TableRow key={purchase.id}>
-                      <TableCell>{purchase.product}</TableCell>
-                      <TableCell>{purchase.supplier}</TableCell>
-                      <TableCell>{purchase.date}</TableCell>
-                      <TableCell>{purchase.quantity}</TableCell>
-                      <TableCell>
-                        ${purchase.totalCost.toLocaleString()}
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          variant="contained"
-                          size="small"
-                          startIcon={<EditOutlinedIcon />}
-                          sx={{ mr: 1 }}
-                          onClick={() => handleEdit(purchase)}
-                        >
-                          Editar
-                        </Button>
-                        <Tooltip title="Eliminar">
-                          <IconButton
-                            onClick={() => {
-                              setPendingDeleteId(purchase.id);
-                              setDialogOpen(true);
-                            }}
-                          >
-                            <DeleteOutlinedIcon />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
-
-          <TablePagination
-            component="div"
-            count={purchases.length}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            labelRowsPerPage="Compras por página"
-          />
-        </>
-      )}
-
+      <TableContainer component={Paper} sx={{ mt: 2 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "product"}
+                  direction={orderDirection}
+                  onClick={() => handleSort("product")}
+                >
+                  Producto
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "supplier"}
+                  direction={orderDirection}
+                  onClick={() => handleSort("supplier")}
+                >
+                  Proveedor
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "date"}
+                  direction={orderDirection}
+                  onClick={() => handleSort("date")}
+                >
+                  Fecha
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "quantity"}
+                  direction={orderDirection}
+                  onClick={() => handleSort("quantity")}
+                >
+                  Cantidad
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "totalCost"}
+                  direction={orderDirection}
+                  onClick={() => handleSort("totalCost")}
+                >
+                  Costo total
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>Acciones</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {paginatedPurchases.map((purchase) => (
+              <TableRow key={purchase.id}>
+                <TableCell>{purchase.product}</TableCell>
+                <TableCell>{purchase.supplier}</TableCell>
+                <TableCell>{purchase.date}</TableCell>
+                <TableCell>{purchase.quantity}</TableCell>
+                <TableCell>${purchase.totalCost.toLocaleString()}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    startIcon={<EditOutlinedIcon />}
+                    sx={{ mr: 1 }}
+                    onClick={() => handleEdit(purchase)}
+                  >
+                    Editar
+                  </Button>
+                  <Tooltip title="Eliminar">
+                    <IconButton
+                      onClick={() => {
+                        setPendingDeleteId(purchase.id);
+                        setDialogOpen(true);
+                      }}
+                    >
+                      <DeleteOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        component="div"
+        count={purchases.length}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Compras por página"
+      />
       <AlertDialog
         open={dialogOpen}
         message="¿Estás seguro de que deseas eliminar esta compra?"
@@ -345,13 +315,11 @@ const PurchaseManager = () => {
           setDialogOpen(false);
         }}
       />
-
       <CreatePurchaseDialog
         open={createDialogOpen}
         onClose={() => setCreateDialogOpen(false)}
         onCreate={handleCreatePurchase}
       />
-
       {selectedPurchase && (
         <EditPurchaseDialog
           open={editDialogOpen}
@@ -363,7 +331,6 @@ const PurchaseManager = () => {
           onSave={handleSavePurchase}
         />
       )}
-
       <CustomSnackbar
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}

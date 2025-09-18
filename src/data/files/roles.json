@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "name": "Administrador",
+    "permissions": ["usuarios", "compras", "ventas", "inventario", "reportes"]
+  },
+  {
+    "id": 2,
+    "name": "Operador",
+    "permissions": ["compras", "ventas", "inventario"]
+  },
+  { "id": 3, "name": "Auditor", "permissions": ["reportes"] }
+]

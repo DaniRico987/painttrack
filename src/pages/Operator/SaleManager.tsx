@@ -29,19 +29,20 @@ import EditSaleDialog from "../../components/EditSaleDialog";
 import SaleStatsPanel from "../../components/SaleStatsPanel";
 import SaleChart from "../../components/SaleChart";
 
+function capitalize(text: string) {
+  if (!text) return "";
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
 const SaleCards = ({ sales, onEdit, onDelete }: SaleCardsProps) => {
   const theme = useTheme();
 
   return (
     <Box
       sx={{
-        display: "grid",
+        display: "flex",
+        flexWrap: "wrap",
         gap: 2,
-        gridTemplateColumns: {
-          xs: "1fr",
-          sm: "1fr 1fr",
-          md: "1fr 1fr 1fr",
-        },
         width: "100%",
       }}
     >
@@ -50,6 +51,8 @@ const SaleCards = ({ sales, onEdit, onDelete }: SaleCardsProps) => {
           key={sale.id}
           elevation={3}
           sx={{
+            flex: "1 1 320px",
+            minWidth: 220,
             p: 2,
             borderRadius: 2,
             boxShadow: theme.shadows[3],
@@ -57,19 +60,19 @@ const SaleCards = ({ sales, onEdit, onDelete }: SaleCardsProps) => {
           }}
         >
           <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-            Producto: {sale.product}
+            {capitalize(`producto: ${sale.product}`)}
           </Typography>
           <Typography variant="body2" color="text.primary">
-            Cliente: {sale.client}
+            {capitalize(`cliente: ${sale.client}`)}
           </Typography>
           <Typography variant="body2" color="text.primary">
-            Fecha: {sale.date}
+            {capitalize(`fecha: ${sale.date}`)}
           </Typography>
           <Typography variant="body2" color="text.primary">
-            Cantidad: {sale.quantity}
+            {capitalize(`cantidad: ${sale.quantity}`)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Ingreso total: ${sale.totalPrice.toLocaleString()}
+            {capitalize(`ingreso total: $${sale.totalPrice.toLocaleString()}`)}
           </Typography>
           <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
             <Button
@@ -78,9 +81,9 @@ const SaleCards = ({ sales, onEdit, onDelete }: SaleCardsProps) => {
               startIcon={<EditOutlinedIcon />}
               onClick={() => onEdit(sale)}
             >
-              Editar
+              {capitalize("editar")}
             </Button>
-            <Tooltip title="Eliminar">
+            <Tooltip title={capitalize("eliminar")}>
               <IconButton onClick={() => onDelete(sale.id)}>
                 <DeleteOutlinedIcon />
               </IconButton>
